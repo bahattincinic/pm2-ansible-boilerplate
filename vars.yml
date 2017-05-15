@@ -8,10 +8,7 @@ install_root: /srv
 
 ansible_python_interpreter: "/usr/bin/python2.7"
 
-app_port: 1454
-app_domain: "localhost"
 upstream_name: "projectname"
-settings_root: "{{ install_root }}/{{ project_name }}/src"
 build_root: "{{ install_root }}/{{ project_name }}/build"
 
 # the git repository URL for the project
