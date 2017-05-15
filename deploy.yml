@@ -1,0 +1,45 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Clone/pull project repo
+      git:
+          repo: "{{ project_repo }}"
+          dest: "{{ install_root }}/{{ project_name }}"
+          accept_hostkey: yes
+          force: yes
+          version: master
+
+    - name: install node packages
+      npm: path={{ install_root }}/{{ project_name }}
+      ignore_errors: True
+
+    - name: build bundle js
+      command: chdir={{ install_root }}/{{ project_name }} npm run build
+
+    - name: copy nginx config
+      template: src=templates/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.conf
+      notify:
+      - restart nginx
+
+    - name: create config folder
+      file: path=/opt/pm2/ state=directory
+
+    - name: copy pm2 config
+      template: src=templates/pm2.j2 dest=/opt/pm2/{{ project_name }}.json
+
+    - name: Restart or start PM2
+      command: chdir={{ build_root }} pm2 startOrRestart /opt/pm2/{{ project_name }}.json
+      ignore_errors: True
+
+    - name: make sure nginx server is running
+      service: name=nginx state=started enabled=yes
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+# vim:ft=ansible:

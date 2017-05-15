@@ -1,0 +1,31 @@
+---
+
+# a unix path-friendly name (IE, no spaces or special characters)
+project_name: project-name
+
+# the base path to install to.
+install_root: /sev
+
+ansible_python_interpreter: "/usr/bin/python2.7"
+
+app_port: 1454
+app_domain: "localhost"
+upstream_name: "hupnos"
+settings_root: "{{ install_root }}/{{ project_name }}/src"
+build_root: "{{ install_root }}/{{ project_name }}/build"
+
+# the git repository URL for the project
+project_repo: git@github.com:bahattincinic/pm2-ansible-boilerplate.git
+
+
+# the dns name or names (space separated) for your server
+server_name: localhost
+server_port: 80
+
+# apt packages, you should not need to change this unless you have packages
+# listed in your requirements.txt that depend on system packages.
+system_packages:
+  - git
+  - nginx
+
+# vim:ft=ansible:
