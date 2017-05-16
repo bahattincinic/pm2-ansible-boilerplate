@@ -68,7 +68,5 @@ pm2 (http://pm2.keymetrics.io/docs/usage/log-management/)
 
 ## Learn More
 
-  * [How To Add Swap Space](https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04)
-  * [The Upstart Event System](https://www.digitalocean.com/community/tutorials/the-upstart-event-system-what-it-is-and-how-to-use-it)
   * [PM2 Usage](http://pm2.keymetrics.io/docs/usage/quick-start/)
   * [Ansible Doc](http://docs.ansible.com/ansible/index.html)
